@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="miApp">
+
+<head>
+    <base href="/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hola Mundo </title>
+    <script src="node_modules\angular\angular.min.js"></script>
+    <script src="node_modules\angular-route\angular-route.min.js"></script>
+    <script src="javascripts/app.js"></script>
+</head>
+
+<body>
+    <h1>Hola Mundo {{'Angular'}}</h1>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/contacto">Contacto</a></li>
+        <li><a href="/usuarios">Usuarios</a></li>
+    </ul>
+    <div ng-view></div>
+</body>
+
+</html>

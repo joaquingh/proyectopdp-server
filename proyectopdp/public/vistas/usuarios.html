@@ -1,0 +1,47 @@
+<section>
+    <div>Listado de usuarios</div>
+    <button ng-click="UserForm=true;UserUpdate=false">Crear Usuario</button>
+    <label>Buscador<input ng-model="buscador"></label>
+    <table border="1px">
+        <tr>
+            <td></td>
+            <td></td>
+            <td>Nombre</td>
+            <td>Apellido</td>
+            <td>Documento</td>
+        </tr>
+        <tr ng-repeat="usuario in listaDeUsuarios|filter:buscador ">
+
+            <td><button ng-click="eliminarUsuario(usuario._id)">Eliminar</button></td>
+            <td><button ng-click="obtenerUsuario(usuario._id)">Modificar</button></td>
+            <td>{{usuario.nombre}}</td>
+            <td>{{usuario.apellido}}</td>
+            <td>{{usuario.documento}}</td>
+        </tr>
+    </table>
+    <!-- Lo mejor es usar el mismo formulario, pero así quizás quede más claro -->
+    <section ng-show="UserForm">
+        <label for="nombre">Nombre</label>
+        <input type="text" ng-model="usuarioNuevo.nombre" name="nombre">
+        <label for="apellido">Apellido</label>
+        <input type="text" ng-model="usuarioNuevo.apellido" name="apellido">
+        <label for="edad">Documento</label>
+        <input type="text" ng-model="usuarioNuevo.documento" name="documento">
+        <label for="mail">Mail</label>
+        <input type="email" ng-model="usuarioNuevo.mail" name="mail">
+
+        <button ng-click="crearUsuario()">Crear</button>
+    </section>
+    <section ng-show="UserUpdate">
+        <label for="nombre">Nombre</label>
+        <input type="text" ng-model="usuario.nombre" name="nombre">
+        <label for="apellido">Apellido</label>
+        <input type="text" ng-model="usuario.apellido" name="apellido">
+        <label for="edad">Documento</label>
+        <input type="text" ng-model="usuario.documento" name="documento">
+        <label for="mail">Mail</label>
+        <input type="email" ng-model="usuario.mail" name="mail">
+
+        <button ng-click="actualizarUsuario(usuario._id)">Actualizar</button>
+    </section>
+</section>
