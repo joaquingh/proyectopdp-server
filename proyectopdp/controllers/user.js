@@ -4,15 +4,16 @@ Controladora de Usuario
 
 */
 var User = require('../models/user');
-var bcrypt = require('bcrypt-nodejs');
+//var bcrypt = require('bcrypt-nodejs');
 
 /**
  * Crea un usuario 
  */
 var createUser = function(req, res) {
- 
-    var hash = bcrypt.hashSync(req.body.clave);//ENCRIPTO LA CLAVE
-    req.body.clave = hash;//LA GUARDO EN EL BODY
+    
+    //var hash = bcrypt.hashSync(req.body.clave);//ENCRIPTO LA CLAVE
+    //req.body.clave = hash;//LA GUARDO EN EL BODY
+    ////ASUMO QUE LA CLAVE VIENE ENCRIPTADA Y LA GUARDO COMO VIENE
 
     var unUsuario = new User(req.body);
     unUsuario.save(function(err, usuarioSalvado) {
@@ -20,36 +21,33 @@ var createUser = function(req, res) {
             console.log("Error al guardar un usuario:" + err);
             res.status(400).end();
         } else {
-
             res.status(200).json(usuarioSalvado);
         }
     });
-
-
 }
 var getUserById = function(req, res) {
-
     User.findById(req.params.id, function(err, usuario) {
         if (err) {
             console.log(err);
         } else {
             //bcrypt.compareSync("bacon", hash); // true
-            //bcrypt.
-            //usuario.clave 
             res.send(usuario);
         }
-
     })
 }
-var doLogin = function(req, res) {
+var doLogin = function(req, res) {    
     User.find({mail:req.params.email}, function(err, usuario) {
         if (err) {
-            console.log(err);
+            res.status(401).end("¡Usuario no encontrado!");
         } else {
             //bcrypt.compareSync(clave_digitada, hash); // true = clave correcta
-            res.send(usuario);
+            var usuarioObj = usuario[0];
+            if (usuarioObj.clave == req.params.clave)
+                res.status(200).send(usuarioObj);
+            else
+                res.status(401).end("¡Contraseña incorrecta!");
         }
-    })
+    });
 }
 var updateUserById = function(req, res) {
     console.log(req.body);
@@ -59,7 +57,6 @@ var updateUserById = function(req, res) {
         } else {
             res.send(usuario);
         }
-
     })
 }
 var deleteUser = function(req, res) {
