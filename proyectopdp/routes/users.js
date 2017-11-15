@@ -8,6 +8,6 @@ router.get('/getAll', UserController.getAllUsers);
 router.put('/delete', UserController.deleteUser);
 router.get('/get/:id', UserController.getUserById);
 router.put('/update/:id', UserController.updateUserById);
-router.get('/login/:email', UserController.doLogin);
+router.get('/login/:email/:clave', UserController.doLogin);
 
 module.exports = router;
