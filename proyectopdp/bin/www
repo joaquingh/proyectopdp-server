@@ -28,6 +28,8 @@ var server = http.createServer(app);
 
 
 mongoose.connect('mongodb://localhost:27017/proyecto', { useMongoClient: true, promiseLibrary: global.Promise });
+//mongoose.connect('mongodb://nooran:27017/proyecto', { useMongoClient: true, promiseLibrary: global.Promise });
+//mongodb://<dbuser>:<dbpassword>@ds117956.mlab.com:17956/noorandb
 var db = mongoose.connection;
 db.on('error', function() {
     console.log("Error al conectar a Mongo, no vamos a iniciar la app");
