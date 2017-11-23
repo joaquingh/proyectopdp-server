@@ -11,7 +11,8 @@ var menuSchema = Schema({
     foto: String,
     puntuacion: [{user_id: String, calificacion: Number, comentario: String}],
     tipo: String,
-    ingredientes: Array
+    ingredientes: Array,
+    user_id: String
 });
 
 var modelo = mongoose.model('Menu', menuSchema);

@@ -14,14 +14,22 @@ var createUser = function(req, res) {
     //var hash = bcrypt.hashSync(req.body.clave);//ENCRIPTO LA CLAVE
     //req.body.clave = hash;//LA GUARDO EN EL BODY
     ////ASUMO QUE LA CLAVE VIENE ENCRIPTADA Y LA GUARDO COMO VIENE
-
     var unUsuario = new User(req.body);
-    unUsuario.save(function(err, usuarioSalvado) {
+    User.find({mail:req.body.mail}, function(err, usuarioEncontrado) {
         if (err) {
-            console.log("Error al guardar un usuario:" + err);
-            res.status(400).end();
+            res.status(409).end("Error al buscar usuario");
         } else {
-            res.status(200).json(usuarioSalvado);
+            if(usuarioEncontrado != ""){
+                res.status(400).end("Email ya registrado!");
+            }else{
+                unUsuario.save(function(err, usuarioSalvado) {
+                if (err) {
+                    res.status(409).end("Error al guardar un usuario");
+                } else {
+                    res.status(200).json(usuarioSalvado);
+                }
+                });
+            }
         }
     });
 }

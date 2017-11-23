@@ -24,6 +24,15 @@ var createFavorite = function(req, res) {
 
 
 }
+var getFavoritesByUserId = function(req, res){
+    Favorito.find({user_id:req.params.id}, function(err, favoritos){
+        if(err){
+            res.status(400).end();
+        }else{
+            res.status(200).json(favoritos);
+        }
+    });
+}
 var getFavoriteById = function(req, res) {
 
     Favorito.findById(req.params.id, function(err, favorito) {
@@ -67,4 +76,4 @@ var getAllFavorites = function(req, res) {
 }
 
 //Es necesario exportar todos los métodos que quieran ser utilizados desde rutas
-module.exports = { createFavorite, getAllFavorites, deleteFavorite, getFavoriteById, updateFavoriteById };
+module.exports = { createFavorite, getAllFavorites, deleteFavorite, getFavoriteById, updateFavoriteById, getFavoritesByUserId };
